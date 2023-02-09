@@ -13,7 +13,7 @@ class _SimpleListColumnState extends State<SimpleListColumn> {
     return Container(
         color: Colors.red,
         width: 100,
-        height: 100,
+        height: 200,
     );
   }
 }
