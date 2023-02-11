@@ -1,279 +1,130 @@
+import 'package:coocree_radio_group/package.dart';
+import 'package:coocree_radio_group/src/simple_list/radio_item.dart';
 import 'package:flutter/material.dart';
 
 class RowThreeColumn extends StatefulWidget {
-  const RowThreeColumn({super.key});
+  final List<ItemNameValue> listItemNameValue;
+  final int maxColumns;
+
+  const RowThreeColumn({super.key, required this.listItemNameValue, this.maxColumns = 3});
 
   @override
   State<RowThreeColumn> createState() => _RowThreeColumnState();
 }
 
 class _RowThreeColumnState extends State<RowThreeColumn> {
-  int _radioValue = 0;
+  Object? groupValue;
+
+  Column buildWidget() {
+    List<Widget> listChildren = [];
+
+    int len = widget.listItemNameValue.length;
+
+    int countItems = 1;
+
+    List<Widget> listItemNameValue = [];
+    for (int i = 0; i < len; i++) {
+      if (countItems <= widget.maxColumns) {
+        Widget item = RadioItem(
+          groupValue: groupValue,
+          itemNameValue: widget.listItemNameValue[i],
+          onChanged: (value){
+            setState(() {
+              groupValue = value;
+            });
+            print(value);
+          },
+        );
+        listItemNameValue.add(item);
+        print(countItems.toString() + "==" + widget.maxColumns.toString());
+        if(countItems >= widget.maxColumns){
+          listChildren.add(Row(children: listItemNameValue));
+          listItemNameValue = [];
+          countItems = 0;
+        }
+      }
+      countItems++;
+    }
+
+    return Column(
+      children: listChildren,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              InkWell(
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  setState(() {
-                    _radioValue = 1;
-                  });
-                  print("AAA");
-                },
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      value: 1,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                        print("BBB");
-                      },
-                    ),
-                    Text('Manta'),
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 2;
-                  });
-                },
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      value: 2,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                      },
-                    ),
-                    Text('Porta Travesseiro'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 3;
-                  });
-                },
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      value: 3,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                      },
-                    ),
-                    Text('Almofadas'),
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 4;
-                  });
-                },
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      value: 4,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                      },
-                    ),
-                    Text('Peseira'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 5;
-                  });
-                },
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      value: 5,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                      },
-                    ),
-                    Text('Capa de Almofadas'),
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 6;
-                  });
-                },
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Row(
-                  children: [
-                    Radio(
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      value: 6,
-                      groupValue: _radioValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _radioValue = value!;
-                        });
-                      },
-                    ),
-                    Text('Jogo Americano'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+    return buildWidget();
+    /*return Column(
+      children: [
+        Row(
+          children: [
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[0],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[1],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[2],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[3],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[4],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+            RadioItem(
+              groupValue: groupValue,
+              itemNameValue: widget.listItemNameValue[5],
+              onChanged: (value){
+                setState(() {
+                  groupValue = value;
+                });
+                print(value);
+              },
+            ),
+          ],
+        ),
+      ],
+    );*/
   }
 }
-   /* return Container(
-      color: Colors.red,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _radioValue = 1;
-                  });
-                },
-                child: Radio(
-                  value: 1,
-                  groupValue: _radioValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _radioValue = value!;
-                    });
-                  },
-                ),
-              ),
-              Radio(
-                value: 2,
-                groupValue: _radioValue,
-                onChanged: (value) {
-                  setState(() {
-                    _radioValue = value!;
-                  });
-                },
-              ),
-              Text('Option 2'),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                value: 3,
-                groupValue: _radioValue,
-                onChanged: (value) {
-                  setState(() {
-                    _radioValue = value!;
-                  });
-                },
-              ),
-              Text('Option 1'),
-              Radio(
-                value: 4,
-                groupValue: _radioValue,
-                onChanged: (value) {
-                  setState(() {
-                    _radioValue = value!;
-                  });
-                },
-              ),
-              Text('Option 2'),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                value: 5,
-                groupValue: _radioValue,
-                onChanged: (value) {
-                  setState(() {
-                    _radioValue = value!;
-                  });
-                },
-              ),
-              Text('Option 1'),
-              Radio(
-                value: 6,
-                groupValue: _radioValue,
-                onChanged: (value) {
-                  setState(() {
-                    _radioValue = value!;
-                  });
-                },
-              ),
-              Text('Option 2'),
-            ],
-          )
-        ],
-      ),
-    );*/
-

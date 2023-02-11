@@ -31,9 +31,16 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: SimpleListColumn(),
+        child: SimpleListColumn(children: [
+          ItemNameValue("MantaX", "manta"),
+          ItemNameValue("Porta Travesseiro", "portaTravesseiro"),
+          ItemNameValue("Almofadas", "almofadas"),
+          ItemNameValue("Peseira", "peseira"),
+          ItemNameValue("Capa de Almofadas", "capaAlmofada"),
+          ItemNameValue("Jogo Americano", "jogoAmericano"),
+        ]),
       ),
     );
   }

@@ -1,22 +1,22 @@
-import 'package:coocree_radio_group2/package.dart';
-import 'package:coocree_radio_group2/src/simple_list/row/row_one_column.dart';
-import 'package:coocree_radio_group2/src/simple_list/row/row_two_column.dart';
-import 'package:coocree_radio_group2/src/simple_list/row/row_three_column.dart';
+import 'package:coocree_radio_group/package.dart';
+import 'package:coocree_radio_group/src/simple_list/row/row_one_column.dart';
+import 'package:coocree_radio_group/src/simple_list/row/row_three_column.dart';
+import 'package:coocree_radio_group/src/simple_list/row/row_two_column.dart';
 import 'package:flutter/material.dart';
 
 class SimpleListColumn extends StatefulWidget {
-  const SimpleListColumn({Key? key}) : super(key: key);
+  final List<ItemNameValue> children;
+
+  const SimpleListColumn({Key? key, required this.children}) : super(key: key);
 
   @override
   State<SimpleListColumn> createState() => _SimpleListColumnState();
 }
 
-
 /// Type of Screen
 ///
 /// This can either be mobile or tablet
 enum ScreenType { mobile, tablet, desktop }
-
 
 class _SimpleListColumnState extends State<SimpleListColumn> {
   String _SelectedOption = 'testA';
@@ -52,14 +52,16 @@ class _SimpleListColumnState extends State<SimpleListColumn> {
       case ScreenType.tablet:
         return const RowTwoColumn();
       case ScreenType.mobile:
-        return const RowThreeColumn();
+        return RowThreeColumn(
+          listItemNameValue: widget.children,
+          maxColumns: 3,
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       print(constraints.maxWidth);
       ScreenType screenType = getScreenType(constraints);
       /*return Container(
