@@ -3,7 +3,7 @@ import 'package:coocree_radio_group/src/simple_list/row_and_column.dart';
 import 'package:flutter/material.dart';
 
 class SimpleListColumn extends StatefulWidget {
-  final List<LabelValueString> children;
+  final List<LabelValue> children;
   final BoxConstraints constraints;
 
   const SimpleListColumn({
@@ -62,7 +62,7 @@ class _SimpleListColumnState extends State<SimpleListColumn> {
     }
 
     return RowAndColumn(
-      listLabelValueString: widget.children,
+      listLabelValue: widget.children,
       maxColumns: maxColumns,
       constraints: boxConstraints,
     );

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class RadioItem<T> extends StatefulWidget {
   final Object? groupValue;
-  final LabelValueString labelValueString;
+  final LabelValue labelValue;
   final ValueChanged<T?>? onChanged;
 
   const RadioItem({
     Key? key,
     required this.groupValue,
-    required this.labelValueString,
+    required this.labelValue,
     required this.onChanged,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class _RadioItemState extends State<RadioItem> {
         Radio(
           focusColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          value: widget.labelValueString,
+          value: widget.labelValue,
           groupValue: widget.groupValue,
           onChanged: widget.onChanged,
         ),
@@ -34,9 +34,9 @@ class _RadioItemState extends State<RadioItem> {
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
-            widget.onChanged!(widget.labelValueString);
+            widget.onChanged!(widget.labelValue);
           },
-          child: Text(widget.labelValueString.label),
+          child: Text(widget.labelValue.label),
         ),
       ],
     );
