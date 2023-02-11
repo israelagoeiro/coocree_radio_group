@@ -1,11 +1,11 @@
 class LabelValueString {
-  final String name;
+  final String label;
   final String value;
 
-  LabelValueString(this.name, this.value);
+  LabelValueString(this.label, this.value);
 
   @override
   String toString() {
-    return 'Instance of LabelValueString(name:$name, value:$value)';
+    return 'Instance of LabelValueString(name:$label, value:$value)';
   }
 }

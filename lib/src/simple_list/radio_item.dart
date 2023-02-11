@@ -36,7 +36,7 @@ class _RadioItemState extends State<RadioItem> {
           onTap: () {
             widget.onChanged!(widget.labelValueString);
           },
-          child: Text(widget.labelValueString.name),
+          child: Text(widget.labelValueString.label),
         ),
       ],
     );
