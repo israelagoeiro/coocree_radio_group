@@ -2,7 +2,7 @@ class LabelValueString {
   final String label;
   final String value;
 
-  LabelValueString(this.label, this.value);
+  LabelValueString({required this.label, required this.value});
 
   @override
   String toString() {
