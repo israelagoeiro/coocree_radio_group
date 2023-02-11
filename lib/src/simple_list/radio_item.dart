@@ -25,7 +25,6 @@ class _RadioItemState extends State<RadioItem> {
         Radio(
           focusColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          materialTapTargetSize: MaterialTapTargetSize.padded,
           value: widget.itemNameValue,
           groupValue: widget.groupValue,
           onChanged: widget.onChanged,

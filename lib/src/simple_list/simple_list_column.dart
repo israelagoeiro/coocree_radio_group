@@ -1,13 +1,16 @@
 import 'package:coocree_radio_group/package.dart';
-import 'package:coocree_radio_group/src/simple_list/row/row_one_column.dart';
-import 'package:coocree_radio_group/src/simple_list/row/row_three_column.dart';
-import 'package:coocree_radio_group/src/simple_list/row/row_two_column.dart';
+import 'package:coocree_radio_group/src/simple_list/row_and_column.dart';
 import 'package:flutter/material.dart';
 
 class SimpleListColumn extends StatefulWidget {
   final List<ItemNameValue> children;
+  final BoxConstraints constraints;
 
-  const SimpleListColumn({Key? key, required this.children}) : super(key: key);
+  const SimpleListColumn({
+    Key? key,
+    required this.children,
+    this.constraints = const BoxConstraints(maxWidth: 200, minWidth: 250),
+  }) : super(key: key);
 
   @override
   State<SimpleListColumn> createState() => _SimpleListColumnState();
@@ -32,149 +35,43 @@ class _SimpleListColumnState extends State<SimpleListColumn> {
     return result;
   }
 
-  Color getColor(BoxConstraints constraints) {
-    ScreenType screenType = getScreenType(constraints);
-    switch (screenType) {
-      case ScreenType.desktop:
-        return Colors.red;
-      case ScreenType.tablet:
-        return Colors.black;
-      case ScreenType.mobile:
-        return Colors.green;
-    }
-  }
+  dynamic rowAndColumn(BoxConstraints constraints) {
+    print("minWidth: ${constraints.minWidth}");
+    print("maxWidth: ${constraints.maxWidth}");
 
-  dynamic getRow(BoxConstraints constraints) {
     ScreenType screenType = getScreenType(constraints);
+    int maxColumns = 1;
     switch (screenType) {
       case ScreenType.desktop:
-        return const RowOneColumn();
+        maxColumns = 3;
+        break;
       case ScreenType.tablet:
-        return const RowTwoColumn();
+        maxColumns = 2;
+        break;
       case ScreenType.mobile:
-        return RowThreeColumn(
-          listItemNameValue: widget.children,
-          maxColumns: 3,
-        );
+        maxColumns = 1;
+        break;
     }
+
+    double columnMaxWidth = constraints.maxWidth / maxColumns;
+    print("columnMaxWidth: $columnMaxWidth");
+
+    BoxConstraints boxConstraints = BoxConstraints(maxWidth: columnMaxWidth);
+    if (boxConstraints.maxWidth > widget.constraints.maxWidth) {
+      boxConstraints = BoxConstraints(maxWidth: widget.constraints.maxWidth);
+    }
+
+    return RowAndColumn(
+      listItemNameValue: widget.children,
+      maxColumns: maxColumns,
+      constraints: boxConstraints,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      print(constraints.maxWidth);
-      ScreenType screenType = getScreenType(constraints);
-      /*return Container(
-        width: 100,
-        height: 100,
-        color: getColor(constraints),
-      );*/
-      return getRow(constraints);
+      return rowAndColumn(constraints);
     });
-    /*return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 10.h,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.grey,
-              child: Text('TIPO'),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: RadioListTile(
-                    value: 'TestA',
-                    title: const Text('Incluir 1 Simuc'),
-                    groupValue: _SelectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        _SelectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-        )
-      ],
-    );*/
   }
 }
