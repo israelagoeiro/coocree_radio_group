@@ -11,7 +11,12 @@ class SimpleListColumn extends StatefulWidget {
   State<SimpleListColumn> createState() => _SimpleListColumnState();
 }
 
-enum ScreenSize { mobile, tablet, desktop }
+
+/// Type of Screen
+///
+/// This can either be mobile or tablet
+enum ScreenType { mobile, tablet, desktop }
+
 
 class _SimpleListColumnState extends State<SimpleListColumn> {
   String _SelectedOption = 'testA';
