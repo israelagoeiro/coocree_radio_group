@@ -3,13 +3,13 @@ import 'package:coocree_radio_group/src/simple_list/radio_item.dart';
 import 'package:flutter/material.dart';
 
 class RowAndColumn extends StatefulWidget {
-  final List<ItemNameValue> listItemNameValue;
+  final List<LabelValueString> listLabelValueString;
   final int maxColumns;
   final BoxConstraints constraints;
 
   const RowAndColumn({
     super.key,
-    required this.listItemNameValue,
+    required this.listLabelValueString,
     required this.constraints,
     this.maxColumns = 3,
   });
@@ -24,18 +24,18 @@ class _RowAndColumnState extends State<RowAndColumn> {
   Column buildWidget() {
     List<Widget> listChildren = [];
 
-    int len = widget.listItemNameValue.length;
+    int len = widget.listLabelValueString.length;
     int maxItems = len % widget.maxColumns;
 
     for (int i = 0; i < len - maxItems; i += widget.maxColumns) {
-      List listGroup = widget.listItemNameValue.sublist(i, i + widget.maxColumns);
-      List<Widget> listItemNameValue = [];
+      List listGroup = widget.listLabelValueString.sublist(i, i + widget.maxColumns);
+      List<Widget> listLabelValueString = [];
       for (var element in listGroup) {
         Widget item = SizedBox(
           width: widget.constraints.maxWidth,
           child: RadioItem(
             groupValue: groupValue,
-            itemNameValue: element,
+            labelValueString: element,
             onChanged: (value) {
               setState(() {
                 groupValue = value;
@@ -43,20 +43,20 @@ class _RowAndColumnState extends State<RowAndColumn> {
             },
           ),
         );
-        listItemNameValue.add(item);
+        listLabelValueString.add(item);
       }
-      listChildren.add(Row(children: listItemNameValue));
+      listChildren.add(Row(children: listLabelValueString));
     }
 
     if (maxItems != 0) {
-      List listGroup = widget.listItemNameValue.sublist(widget.listItemNameValue.length - maxItems);
-      List<Widget> listItemNameValue = [];
+      List listGroup = widget.listLabelValueString.sublist(widget.listLabelValueString.length - maxItems);
+      List<Widget> listLabelValueString = [];
       for (var element in listGroup) {
         Widget item = SizedBox(
           width: widget.constraints.maxWidth,
           child: RadioItem(
             groupValue: groupValue,
-            itemNameValue: element,
+            labelValueString: element,
             onChanged: (value) {
               setState(() {
                 print('BBBBBBBBBBBBBBBBB');
@@ -66,9 +66,9 @@ class _RowAndColumnState extends State<RowAndColumn> {
             },
           ),
         );
-        listItemNameValue.add(item);
+        listLabelValueString.add(item);
       }
-      listChildren.add(Row(children: listItemNameValue));
+      listChildren.add(Row(children: listLabelValueString));
     }
 
     return Column(
