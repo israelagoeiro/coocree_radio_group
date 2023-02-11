@@ -1,6 +1,7 @@
 import 'package:coocree_radio_group/package.dart';
 import 'package:flutter/material.dart';
 
+//teste2
 void main() {
   runApp(const Example());
 }
@@ -30,9 +31,23 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: SimpleListColumn(),
+        child: SimpleListColumn(
+          children: [
+            ItemNameValue("MantaX", "manta"),
+            ItemNameValue("Porta Travesseiro", "portaTravesseiro"),
+            ItemNameValue("Almofadas", "almofadas"),
+            ItemNameValue("Peseira", "peseira"),
+            ItemNameValue("Capa de Almofadas", "capaAlmofada"),
+            ItemNameValue("Jogo Americano", "jogoAmericano"),
+            ItemNameValue("Toalha de Mesa", "toalhaMesa"),
+            ItemNameValue("Forro de Sofá", "Forro Sofá"),
+            ItemNameValue("Almofa redonda", "almofadaRedonda"),
+            ItemNameValue("Toalha de Banho", "toalhaBanho"),
+          ],
+
+        ),
       ),
     );
   }
