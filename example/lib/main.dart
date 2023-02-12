@@ -35,18 +35,17 @@ class _ExamplePageState extends State<ExamplePage> {
       body: Center(
         child: SimpleListColumn(
           children: [
-            ItemNameValue("MantaX", "manta"),
-            ItemNameValue("Porta Travesseiro", "portaTravesseiro"),
-            ItemNameValue("Almofadas", "almofadas"),
-            ItemNameValue("Peseira", "peseira"),
-            ItemNameValue("Capa de Almofadas", "capaAlmofada"),
-            ItemNameValue("Jogo Americano", "jogoAmericano"),
-            ItemNameValue("Toalha de Mesa", "toalhaMesa"),
-            ItemNameValue("Forro de Sofá", "Forro Sofá"),
-            ItemNameValue("Almofa redonda", "almofadaRedonda"),
-            ItemNameValue("Toalha de Banho", "toalhaBanho"),
+            LabelValue(label: "MantaX", value: "manta"),
+            LabelValue(label: "Porta Travesseiro", value: "portaTravesseiro"),
+            LabelValue(label: "Almofadas", value: "almofadas"),
+            LabelValue(label: "Peseira", value: "peseira"),
+            LabelValue(label: "Capa de Almofadas", value: "capaAlmofada"),
+            LabelValue(label: "Jogo Americano", value: "jogoAmericano"),
+            LabelValue(label: "Toalha de Mesa", value: "toalhaMesa"),
+            LabelValue(label: "Forro de Sofá", value: "Forro Sofá"),
+            LabelValue(label: "Almofa redonda", value: "almofadaRedonda"),
+            LabelValue(label: "Toalha de Banho", value: "toalhaBanho"),
           ],
-
         ),
       ),
     );
