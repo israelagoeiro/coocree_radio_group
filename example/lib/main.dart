@@ -35,7 +35,7 @@ class _ExamplePageState extends State<ExamplePage> {
       body: Center(
         child: SimpleListColumn(
           children: [
-            LabelValue(label: "MantaX", value: "manta"),
+            LabelValue(label: "Manta", value: "manta"),
             LabelValue(label: "Porta Travesseiro", value: "portaTravesseiro"),
             LabelValue(label: "Almofadas", value: "almofadas"),
             LabelValue(label: "Peseira", value: "peseira"),
