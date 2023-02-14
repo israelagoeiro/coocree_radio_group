@@ -2,15 +2,26 @@ import 'package:coocree_radio_group/package.dart';
 import 'package:coocree_radio_group/src/simple_list/row_and_column.dart';
 import 'package:flutter/material.dart';
 
-class SimpleListColumn extends StatefulWidget {
+class SimpleListColumn<T> extends StatefulWidget {
   final List<LabelValue> children;
-  final BoxConstraints constraints;
 
-  const SimpleListColumn({
+  /// The minimum width that satisfies the constraints.
+  final double minWidth;
+
+  /// The maximum width that satisfies the constraints.
+  final double maxWidth;
+
+   SimpleListColumn({
     Key? key,
     required this.children,
-    this.constraints = const BoxConstraints(maxWidth: 200, minWidth: 250),
-  }) : super(key: key);
+    this.minWidth = 230,
+    this.maxWidth = 230,
+  })  : assert(maxWidth>=minWidth),
+        super(key: key){
+    print("aaaaaaaaaaaaaaaaaaaaaa");
+     print(maxWidth);
+    print(minWidth);
+  }
 
   @override
   State<SimpleListColumn> createState() => _SimpleListColumnState();
@@ -22,49 +33,28 @@ class SimpleListColumn extends StatefulWidget {
 enum ScreenType { mobile, tablet, desktop }
 
 class _SimpleListColumnState extends State<SimpleListColumn> {
-  String _SelectedOption = 'testA';
-
-  ScreenType getScreenType(BoxConstraints constraints) {
-    ScreenType result = ScreenType.mobile;
-    if (constraints.maxWidth > 800) {
-      result = ScreenType.tablet;
-    }
-    if (constraints.maxWidth > 1100) {
-      result = ScreenType.desktop;
-    }
-    return result;
-  }
-
   dynamic rowAndColumn(BoxConstraints constraints) {
+    int maxColumns = (constraints.maxWidth / widget.maxWidth).round();
+    double columnMaxWidth = constraints.maxWidth / maxColumns;
+
+    print("==========================================");
     print("minWidth: ${constraints.minWidth}");
     print("maxWidth: ${constraints.maxWidth}");
-
-    ScreenType screenType = getScreenType(constraints);
-    int maxColumns = 1;
-    switch (screenType) {
-      case ScreenType.desktop:
-        maxColumns = 3;
-        break;
-      case ScreenType.tablet:
-        maxColumns = 2;
-        break;
-      case ScreenType.mobile:
-        maxColumns = 1;
-        break;
-    }
-
-    double columnMaxWidth = constraints.maxWidth / maxColumns;
     print("columnMaxWidth: $columnMaxWidth");
+    print("maxWidth: ${widget.maxWidth}");
+    print("maxWidth: ${(constraints.maxWidth / widget.maxWidth).round()}");
+    print("columnWidth: ${(constraints.maxWidth / maxColumns)}");
 
     BoxConstraints boxConstraints = BoxConstraints(maxWidth: columnMaxWidth);
-    if (boxConstraints.maxWidth > widget.constraints.maxWidth) {
-      boxConstraints = BoxConstraints(maxWidth: widget.constraints.maxWidth);
+    if (boxConstraints.maxWidth > widget.maxWidth) {
+      boxConstraints = BoxConstraints(maxWidth: widget.maxWidth);
     }
 
     return RowAndColumn(
       listLabelValue: widget.children,
       maxColumns: maxColumns,
       constraints: boxConstraints,
+      width: (constraints.maxWidth / maxColumns),
     );
   }
 
