@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 
 class RadioItem<T> extends StatefulWidget {
   final Object? groupValue;
-  final LabelValue labelValue;
-  final ValueChanged<T?>? onChanged;
+  final OptionItem optionItem;
+  final ValueChanged<String?>? onChanged;
+  final FormFieldState<String> state;
 
   const RadioItem({
     Key? key,
     required this.groupValue,
-    required this.labelValue,
+    required this.optionItem,
     required this.onChanged,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -22,21 +24,27 @@ class _RadioItemState extends State<RadioItem> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Radio(
+        Radio<String>(
           focusColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          value: widget.labelValue,
-          groupValue: widget.groupValue,
-          onChanged: widget.onChanged,
+          value: widget.optionItem.value,
+          groupValue: widget.state.value,
+          onChanged: (value) {
+            widget.onChanged!(value);
+            widget.state.didChange(value);
+            widget.state.validate();
+          },
         ),
         InkWell(
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
-            widget.onChanged!(widget.labelValue);
+            widget.onChanged!(widget.optionItem.value);
+            widget.state.didChange(widget.optionItem.value);
+            widget.state.validate();
           },
-          child: Text(widget.labelValue.label),
+          child: Text(widget.optionItem.label),
         ),
       ],
     );

@@ -1,7 +1,6 @@
 import 'package:coocree_radio_group/package.dart';
 import 'package:flutter/material.dart';
 
-//teste2
 void main() {
   runApp(const Example());
 }
@@ -41,27 +40,46 @@ class _ExamplePageState extends State<ExamplePage> {
             children: [
               Form(
                 key: formKey,
-                child: SimpleListColumn(
+                child: Column(
                   children: [
-                    LabelValue(label: "Manta", value: "manta"),
-                    LabelValue(label: "Porta Travesseiro", value: "portaTravesseiro"),
-                    LabelValue(label: "Almofadas", value: "almofadas"),
-                    LabelValue(label: "Peseira", value: "peseira"),
-                    LabelValue(label: "Capa de Almofadas", value: "capaAlmofada"),
-                    LabelValue(label: "Jogo Americano", value: "jogoAmericano"),
-                    LabelValue(label: "Toalha de Mesa", value: "toalhaMesa"),
-                    LabelValue(label: "Forro de Sofá", value: "Forro Sofá"),
-                    LabelValue(label: "Almofa redonda", value: "almofadaRedonda"),
-                    LabelValue(label: "Toalha de Banho", value: "toalhaBanho"),
+                    SimpleRadioFormField(
+                      //initialValue: "manta",
+                      options: [
+                        OptionItem(label: "Manta", value: "manta"),
+                        OptionItem(label: "Porta Travesseiro", value: "portaTravesseiro"),
+                        OptionItem(label: "Almofadas", value: "almofadas"),
+                        OptionItem(label: "Peseira", value: "peseira"),
+                        OptionItem(label: "Capa de Almofadas", value: "capaAlmofada"),
+                        OptionItem(label: "Jogo Americano", value: "jogoAmericano"),
+                        OptionItem(label: "Toalha de Mesa", value: "toalhaMesa"),
+                        OptionItem(label: "Forro de Sofá", value: "Forro Sofá"),
+                        OptionItem(label: "Almofa redonda", value: "almofadaRedonda"),
+                        OptionItem(label: "Toalha de Banho", value: "toalhaBanho"),
+                      ],
+                      validator: (value) {
+                        print("VALIDATOR-->>$value");
+                        if (value == null) {
+                          return 'Por favor selecione um produto';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                          print("ONCHANGED-->>$value");
+                      },
+                      onSaved: (value) {
+                        print("ONSAVED-->$value");
+                      },
+                    ),
                   ],
                 ),
               ),
-              TextButton(onPressed: (){
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  print("XXXXXXXXXXXXXXXXXXXXXXX");
-                }
-              }, child: Text("Salvar"))
+              TextButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                    }
+                  },
+                  child: const Text("Salvar"))
             ],
           ),
         ),
