@@ -1,12 +1,17 @@
 import 'package:coocree_radio_group/package.dart';
 import 'package:flutter/material.dart';
 
+//O código cria um aplicativo Flutter com uma página que contém um formulário que utiliza o widget
+// SimpleRadioFormField para exibir um grupo de radio buttons.
+//
+// Função principal do aplicativo Flutter
 void main() {
   runApp(const Example());
 }
 
+// Example cria o aplicativo e define o tema
 class Example extends StatelessWidget {
-  const Example({super.key});
+  const Example({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +25,17 @@ class Example extends StatelessWidget {
   }
 }
 
+// Widget que exibe a página com o formulário
 class ExamplePage extends StatefulWidget {
-  const ExamplePage({super.key});
+  const ExamplePage({Key? key});
 
   @override
   State<ExamplePage> createState() => _ExamplePageState();
 }
 
+// Estado do widget ExamplePage
 class _ExamplePageState extends State<ExamplePage> {
+  // Chave global para o formulário
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -64,7 +72,7 @@ class _ExamplePageState extends State<ExamplePage> {
                         return null;
                       },
                       onChanged: (value) {
-                          print("ONCHANGED-->>$value");
+                        print("ONCHANGED-->>$value");
                       },
                       onSaved: (value) {
                         print("ONSAVED-->$value");

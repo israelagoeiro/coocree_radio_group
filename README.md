@@ -1,39 +1,138 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# SimpleRadioFormField
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+O `SimpleRadioFormField` é um widget que permite exibir um grupo de radio buttons em uma grade simples. Este widget é especialmente útil quando se deseja limitar as opções selecionáveis e apresentá-las de forma organizada e fácil de usar.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+## Como utilizar
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Para utilizar o `SimpleRadioFormField`, é necessário importar o pacote `coocree_radio_group` e a classe `SimpleRadioFormField`. Em seguida, adicione o widget ao seu formulário, definindo as opções que serão exibidas e implementando as funções de validação, salvamento e alteração.
 
 ```dart
-const like = 'sample';
+import 'package:coocree_radio_group/package.dart';
+import 'package:flutter/material.dart';
+
+Form(
+  child: Column(
+    children: [
+      SimpleRadioFormField(
+        options: [
+          OptionItem(label: "Opção 1", value: "opcao1"),
+          OptionItem(label: "Opção 2", value: "opcao2"),
+          OptionItem(label: "Opção 3", value: "opcao3"),
+        ],
+        validator: (value) {
+          if (value == null) {
+            return 'Por favor selecione uma opção';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          print("A opção selecionada é: $value");
+        },
+        onSaved: (value) {
+          print("A opção selecionada foi salva: $value");
+        },
+      ),
+    ],
+  ),
+);
+
 ```
 
-## Additional information
+Parâmetros
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+* `options`: Lista de opções a serem exibidas.
+* `minWidth`: Largura mínima do item do radio button.
+* `maxWidth`: Largura máxima do item do radio button.
+* `errorText`: Texto de erro a ser exibido.
+* `onChanged`: Função chamada quando um item do radio button é alterado.
+* `onSaved`: Função chamada quando o formulário é salvo.
+* `validator`: Função chamada para validar o valor do campo.
+
+## Exemplo completo
+
+Confira o exemplo completo de como utilizar o `SimpleRadioFormField` em um formulário Flutter.
+
+```dart
+import 'package:coocree_radio_group/package.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SimpleRadioFormField Demo',
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SimpleRadioFormField(
+                      options: [
+                        OptionItem(label: "Opção 1", value: "opcao1"),
+                        OptionItem(label: "Opção 2", value: "opcao2"),
+                        OptionItem(label: "Opção 3", value: "opcao3"),
+                      ],
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Por favor selecione uma opção';
+                        }
+                   
+                  },
+                  onChanged: (value) {
+                    print("A opção selecionada é: $value");
+                  },
+                  onSaved: (value) {
+                    print("A opção selecionada foi salva: $value");
+                  },
+                ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              }
+            },
+            child: const Text("Salvar"),
+          ),
+        ],
+      ),
+    ),
+  ),
+);
+
+```
+
+Neste exemplo, foi definido um formulário com apenas um campo `SimpleRadioFormField`, com três opções
+exibidas em uma grade simples. A função `validator` verifica se uma opção foi
+selecionada e a função `onChanged` é chamada toda vez que uma opção é selecionada.
+A função `onSaved` é chamada quando o formulário é salvo.
