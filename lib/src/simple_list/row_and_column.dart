@@ -6,12 +6,14 @@ class RowAndColumn extends StatefulWidget {
   final List<LabelValue> listLabelValue;
   final int maxColumns;
   final BoxConstraints constraints;
+  final double width;
 
   const RowAndColumn({
     super.key,
     required this.listLabelValue,
     required this.constraints,
-    this.maxColumns = 3,
+    required this.maxColumns,
+    required this.width,
   });
 
   @override
@@ -31,8 +33,15 @@ class _RowAndColumnState extends State<RowAndColumn> {
       List listGroup = widget.listLabelValue.sublist(i, i + widget.maxColumns);
       List<Widget> listLabelValue = [];
       for (var element in listGroup) {
-        Widget item = SizedBox(
-          width: widget.constraints.maxWidth,
+        Widget item = Container(
+          width: widget.width,
+          constraints: BoxConstraints(
+            maxWidth: widget.constraints.maxWidth,
+          ),
+          /*decoration: BoxDecoration(
+            color: Colors.lightGreen.withOpacity(0.3),
+            border: Border.all(width: 1, color: Colors.deepPurpleAccent),
+          ),*/
           child: RadioItem(
             groupValue: groupValue,
             labelValue: element,
@@ -52,20 +61,24 @@ class _RowAndColumnState extends State<RowAndColumn> {
       List listGroup = widget.listLabelValue.sublist(widget.listLabelValue.length - maxItems);
       List<Widget> listLabelValue = [];
       for (var element in listGroup) {
-        Widget item = SizedBox(
-          width: widget.constraints.maxWidth,
+        Widget item = Container(
+          width: widget.width,
+          constraints: BoxConstraints(maxWidth: widget.constraints.maxWidth),
+          /*decoration: BoxDecoration(
+            color: Colors.lightGreen.withOpacity(0.3),
+            border: Border.all(width: 1, color: Colors.deepPurpleAccent),
+          ),*/
           child: RadioItem(
             groupValue: groupValue,
             labelValue: element,
             onChanged: (value) {
               setState(() {
-                print('BBBBBBBBBBBBBBBBB');
-                print(value);
                 groupValue = value;
               });
             },
           ),
         );
+
         listLabelValue.add(item);
       }
       listChildren.add(Row(children: listLabelValue));
