@@ -132,8 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ```
 
-Neste exemplo, foi definido um formulário com apenas um campo `SimpleRadioFormField`,
-
-com três opções exibidas em uma grade simples. A função `validator` verifica se uma opção foi
+Neste exemplo, foi definido um formulário com apenas um campo `SimpleRadioFormField`, com três opções
+exibidas em uma grade simples. A função `validator` verifica se uma opção foi
 selecionada e a função `onChanged` é chamada toda vez que uma opção é selecionada.
 A função `onSaved` é chamada quando o formulário é salvo.
