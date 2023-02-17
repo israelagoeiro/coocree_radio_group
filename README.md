@@ -6,6 +6,16 @@ O `SimpleRadioFormField` é um widget que permite exibir um grupo de radio butto
 
 Para utilizar o `SimpleRadioFormField`, é necessário importar o pacote `coocree_radio_group` e a classe `SimpleRadioFormField`. Em seguida, adicione o widget ao seu formulário, definindo as opções que serão exibidas e implementando as funções de validação, salvamento e alteração.
 
+No arquivo pubspec.yaml, `implemente` a configuração do GitHub em `dependencies`.
+
+```dart
+    dependencies:
+        coocree_radio_group:
+            git:
+                url: https://github.com/israelagoeiro/coocree_radio_group.git
+                ref: v0.0.13 # tag
+```
+
 ```dart
 import 'package:coocree_radio_group/package.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         if (value == null) {
                           return 'Por favor selecione uma opção';
                         }
-                   
+   
                   },
                   onChanged: (value) {
                     print("A opção selecionada é: $value");
